@@ -21,6 +21,8 @@ export default defineConfig({
     hmr: {
       clientPort: 443,
     },
+    // @ts-ignore - CodeSandbox specific option (not standard Vite)
+    allowedHosts: ["all", ".csb.app", "kpzzj2-5173.csb.app"],
   },
   preview: {
     host: "0.0.0.0",

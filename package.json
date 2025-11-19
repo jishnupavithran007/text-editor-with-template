@@ -1,0 +1,51 @@
+{
+  "name": "@lexical/react-rich-example",
+  "private": true,
+  "version": "0.38.2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "monorepo:dev": "vite -c vite.config.monorepo.ts",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@lexical/clipboard": "0.38.2",
+    "@lexical/code": "0.38.2",
+    "@lexical/dragon": "^0.38.2",
+    "@lexical/file": "0.38.2",
+    "@lexical/hashtag": "0.38.2",
+    "@lexical/link": "0.38.2",
+    "@lexical/list": "0.38.2",
+    "@lexical/mark": "0.38.2",
+    "@lexical/markdown": "0.38.2",
+    "@lexical/overflow": "0.38.2",
+    "@lexical/plain-text": "0.38.2",
+    "@lexical/react": "0.38.2",
+    "@lexical/rich-text": "0.38.2",
+    "@lexical/selection": "0.38.2",
+    "@lexical/table": "0.38.2",
+    "@lexical/text": "0.38.2",
+    "@lexical/utils": "0.38.2",
+    "@lexical/yjs": "^0.38.2",
+    "emoji-picker-react": "^4.15.1",
+    "katex": "^0.16.25",
+    "lexical": "0.38.2",
+    "prism-react-renderer": "^2.1.0",
+    "prismjs": "^1.29.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-katex": "^3.1.0",
+    "y-websocket": "^3.0.0",
+    "yjs": "^13.6.27"
+  },
+  "devDependencies": {
+    "@types/prismjs": "^1.26.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.2",
+    "cross-env": "^7.0.3",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.4"
+  }
+}

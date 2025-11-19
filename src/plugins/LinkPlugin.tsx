@@ -1,0 +1,24 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+import {LinkPlugin as LexicalLinkPlugin} from '@lexical/react/LexicalLinkPlugin';
+
+export default function LinkPlugin(): JSX.Element {
+  const validateUrl = (url: string): boolean => {
+    // Basic URL validation
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  return <LexicalLinkPlugin validateUrl={validateUrl} />;
+}
+

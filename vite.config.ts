@@ -11,4 +11,14 @@ import {defineConfig} from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    // Exclude problematic packages from optimization in StackBlitz
+    exclude: ['@rollup/rollup-linux-x64-musl'],
+  },
+  build: {
+    // Use esbuild for minification instead of terser (avoids native rollup plugins)
+    minify: 'esbuild',
+    // Reduce chunk size warnings
+    chunkSizeWarningLimit: 1000,
+  },
 });

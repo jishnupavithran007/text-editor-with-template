@@ -58,6 +58,7 @@ import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import TreeViewPlugin from "./plugins/TreeViewPlugin";
 import TwitterPlugin from "./plugins/TwitterPlugin";
 import YouTubePlugin from "./plugins/YouTubePlugin";
+import ExportPayloadPlugin from "./plugins/ExportPayloadPlugin";
 import { parseAllowedColor, parseAllowedFontSize } from "./styleConfig";
 import ContentEditable from "./ui/ContentEditable";
 
@@ -245,6 +246,9 @@ function Editor(): JSX.Element {
 
         {/* Drag & Drop */}
         <DragDropPastePlugin />
+
+        {/* Export Payload for Backend Testing */}
+        <ExportPayloadPlugin />
 
         {/* Character Limit (optional - comment out if not needed) */}
         {/* <CharacterLimitPlugin charset="UTF-16" maxLength={5000} /> */}

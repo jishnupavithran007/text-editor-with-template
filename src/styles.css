@@ -340,6 +340,32 @@ pre::-webkit-scrollbar-thumb {
   vertical-align: middle;
 }
 
+.toolbar button.toolbar-item.html-import-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.toolbar button.toolbar-item.html-import-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.toolbar button.toolbar-item.test-payload-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.toolbar button.toolbar-item.test-payload-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
 .toolbar button.toolbar-item:disabled {
   cursor: not-allowed;
 }

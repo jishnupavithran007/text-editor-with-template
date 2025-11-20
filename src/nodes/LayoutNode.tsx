@@ -14,14 +14,14 @@ import type {
   LexicalNode,
   NodeKey,
   Spread,
-} from 'lexical';
+} from "lexical";
 
 import {
   $applyNodeReplacement,
   $isElementNode,
   ElementNode,
   SerializedElementNode,
-} from 'lexical';
+} from "lexical";
 
 export type SerializedLayoutContainerNode = Spread<
   {
@@ -35,29 +35,39 @@ export class LayoutContainerNode extends ElementNode {
   __templateColumns: string;
   __backgroundColor: string;
 
-  constructor(templateColumns: string, backgroundColor?: string, format?: ElementFormatType, key?: NodeKey) {
+  constructor(
+    templateColumns: string,
+    backgroundColor?: string,
+    format?: ElementFormatType,
+    key?: NodeKey
+  ) {
     super(key);
     this.__templateColumns = templateColumns;
-    this.__backgroundColor = backgroundColor || '#f9fafb';
-    this.__format = format || '';
+    this.__backgroundColor = backgroundColor || "#f9fafb";
+    this.__format = format || "";
   }
 
   static getType(): string {
-    return 'layout-container';
+    return "layout-container";
   }
 
   static clone(node: LayoutContainerNode): LayoutContainerNode {
-    return new LayoutContainerNode(node.__templateColumns, node.__backgroundColor, node.__format, node.__key);
+    return new LayoutContainerNode(
+      node.__templateColumns,
+      node.__backgroundColor,
+      node.__format,
+      node.__key
+    );
   }
 
   createDOM(config: EditorConfig): HTMLElement {
-    const dom = document.createElement('div');
-    dom.setAttribute('data-lexical-layout-container', 'true');
-    dom.style.display = 'grid';
+    const dom = document.createElement("div");
+    dom.setAttribute("data-lexical-layout-container", "true");
+    dom.style.display = "grid";
     dom.style.gridTemplateColumns = this.__templateColumns;
-    dom.style.gap = '20px';
+    dom.style.gap = "20px";
     dom.style.backgroundColor = this.__backgroundColor;
-    if (typeof this.__format === 'string') {
+    if (typeof this.__format === "string") {
       dom.style.textAlign = this.__format;
     }
     return dom;
@@ -77,8 +87,13 @@ export class LayoutContainerNode extends ElementNode {
     return {};
   }
 
-  static importJSON(serializedNode: SerializedLayoutContainerNode): LayoutContainerNode {
-    return $createLayoutContainerNode(serializedNode.templateColumns, serializedNode.backgroundColor);
+  static importJSON(
+    serializedNode: SerializedLayoutContainerNode
+  ): LayoutContainerNode {
+    return $createLayoutContainerNode(
+      serializedNode.templateColumns,
+      serializedNode.backgroundColor
+    );
   }
 
   isShadowRoot(): boolean {
@@ -94,7 +109,7 @@ export class LayoutContainerNode extends ElementNode {
       ...super.exportJSON(),
       templateColumns: this.__templateColumns,
       backgroundColor: this.__backgroundColor,
-      type: 'layout-container',
+      type: "layout-container",
       version: 1,
     };
   }
@@ -109,12 +124,17 @@ export class LayoutContainerNode extends ElementNode {
   }
 }
 
-export function $createLayoutContainerNode(templateColumns: string, backgroundColor?: string): LayoutContainerNode {
-  return $applyNodeReplacement(new LayoutContainerNode(templateColumns, backgroundColor));
+export function $createLayoutContainerNode(
+  templateColumns: string,
+  backgroundColor?: string
+): LayoutContainerNode {
+  return $applyNodeReplacement(
+    new LayoutContainerNode(templateColumns, backgroundColor)
+  );
 }
 
 export function $isLayoutContainerNode(
-  node: LexicalNode | null | undefined,
+  node: LexicalNode | null | undefined
 ): node is LayoutContainerNode {
   return node instanceof LayoutContainerNode;
 }
@@ -123,7 +143,7 @@ export type SerializedLayoutItemNode = SerializedElementNode;
 
 export class LayoutItemNode extends ElementNode {
   static getType(): string {
-    return 'layout-item';
+    return "layout-item";
   }
 
   static clone(node: LayoutItemNode): LayoutItemNode {
@@ -131,8 +151,8 @@ export class LayoutItemNode extends ElementNode {
   }
 
   createDOM(): HTMLElement {
-    const dom = document.createElement('div');
-    dom.setAttribute('data-lexical-layout-item', 'true');
+    const dom = document.createElement("div");
+    dom.setAttribute("data-lexical-layout-item", "true");
     return dom;
   }
 
@@ -155,7 +175,7 @@ export class LayoutItemNode extends ElementNode {
   exportJSON(): SerializedLayoutItemNode {
     return {
       ...super.exportJSON(),
-      type: 'layout-item',
+      type: "layout-item",
       version: 1,
     };
   }
@@ -166,8 +186,7 @@ export function $createLayoutItemNode(): LayoutItemNode {
 }
 
 export function $isLayoutItemNode(
-  node: LexicalNode | null | undefined,
+  node: LexicalNode | null | undefined
 ): node is LayoutItemNode {
   return node instanceof LayoutItemNode;
 }
-

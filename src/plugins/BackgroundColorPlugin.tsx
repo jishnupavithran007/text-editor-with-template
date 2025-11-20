@@ -140,10 +140,9 @@ export default function BackgroundColorPlugin(): JSX.Element | null {
         
         if (domElement) {
           setTemplateElement(domElement as HTMLElement);
-          // Get current background color from the DOM element
-          const currentBg = window.getComputedStyle(domElement).backgroundColor;
-          // Convert rgb to hex if needed, or keep as is
-          setCurrentColor(rgbToHex(currentBg) || "#f9fafb");
+          // Get current background color from the node's state
+          const bgColor = topmostLayoutContainer.getBackgroundColor();
+          setCurrentColor(bgColor || "#f9fafb");
         }
       } else {
         setTemplateElement(null);
@@ -154,11 +153,36 @@ export default function BackgroundColorPlugin(): JSX.Element | null {
   const handleColorChange = useCallback(
     (color: string) => {
       if (templateElement) {
-        templateElement.style.backgroundColor = color;
+        // Update the node's backgroundColor property (persists in JSON)
+        editor.update(() => {
+          const selection = $getSelection();
+          if (!$isRangeSelection(selection)) {
+            return;
+          }
+
+          // Find the outermost layout container
+          const anchorNode = selection.anchor.getNode();
+          let topmostLayoutContainer = null;
+
+          let current = anchorNode;
+          while (current) {
+            if ($isLayoutContainerNode(current)) {
+              topmostLayoutContainer = current;
+            }
+            const parent = current.getParent();
+            if (!parent) break;
+            current = parent;
+          }
+
+          if (topmostLayoutContainer && $isLayoutContainerNode(topmostLayoutContainer)) {
+            topmostLayoutContainer.setBackgroundColor(color);
+          }
+        });
+        
         setCurrentColor(color);
       }
     },
-    [templateElement]
+    [editor, templateElement]
   );
 
   // Convert RGB to Hex

@@ -26,16 +26,19 @@ import {
 export type SerializedLayoutContainerNode = Spread<
   {
     templateColumns: string;
+    backgroundColor?: string;
   },
   SerializedElementNode
 >;
 
 export class LayoutContainerNode extends ElementNode {
   __templateColumns: string;
+  __backgroundColor: string;
 
-  constructor(templateColumns: string, format?: ElementFormatType, key?: NodeKey) {
+  constructor(templateColumns: string, backgroundColor?: string, format?: ElementFormatType, key?: NodeKey) {
     super(key);
     this.__templateColumns = templateColumns;
+    this.__backgroundColor = backgroundColor || '#f9fafb';
     this.__format = format || '';
   }
 
@@ -44,7 +47,7 @@ export class LayoutContainerNode extends ElementNode {
   }
 
   static clone(node: LayoutContainerNode): LayoutContainerNode {
-    return new LayoutContainerNode(node.__templateColumns, node.__format, node.__key);
+    return new LayoutContainerNode(node.__templateColumns, node.__backgroundColor, node.__format, node.__key);
   }
 
   createDOM(config: EditorConfig): HTMLElement {
@@ -53,6 +56,7 @@ export class LayoutContainerNode extends ElementNode {
     dom.style.display = 'grid';
     dom.style.gridTemplateColumns = this.__templateColumns;
     dom.style.gap = '20px';
+    dom.style.backgroundColor = this.__backgroundColor;
     if (typeof this.__format === 'string') {
       dom.style.textAlign = this.__format;
     }
@@ -63,6 +67,9 @@ export class LayoutContainerNode extends ElementNode {
     if (prevNode.__templateColumns !== this.__templateColumns) {
       dom.style.gridTemplateColumns = this.__templateColumns;
     }
+    if (prevNode.__backgroundColor !== this.__backgroundColor) {
+      dom.style.backgroundColor = this.__backgroundColor;
+    }
     return false;
   }
 
@@ -71,7 +78,7 @@ export class LayoutContainerNode extends ElementNode {
   }
 
   static importJSON(serializedNode: SerializedLayoutContainerNode): LayoutContainerNode {
-    return $createLayoutContainerNode(serializedNode.templateColumns);
+    return $createLayoutContainerNode(serializedNode.templateColumns, serializedNode.backgroundColor);
   }
 
   isShadowRoot(): boolean {
@@ -86,14 +93,24 @@ export class LayoutContainerNode extends ElementNode {
     return {
       ...super.exportJSON(),
       templateColumns: this.__templateColumns,
+      backgroundColor: this.__backgroundColor,
       type: 'layout-container',
       version: 1,
     };
   }
+
+  getBackgroundColor(): string {
+    return this.__backgroundColor;
+  }
+
+  setBackgroundColor(backgroundColor: string): void {
+    const writable = this.getWritable();
+    writable.__backgroundColor = backgroundColor;
+  }
 }
 
-export function $createLayoutContainerNode(templateColumns: string): LayoutContainerNode {
-  return $applyNodeReplacement(new LayoutContainerNode(templateColumns));
+export function $createLayoutContainerNode(templateColumns: string, backgroundColor?: string): LayoutContainerNode {
+  return $applyNodeReplacement(new LayoutContainerNode(templateColumns, backgroundColor));
 }
 
 export function $isLayoutContainerNode(
